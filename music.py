@@ -1,7 +1,4 @@
 #!/usr/bin/env python3.9
-from pickle import FALSE
-from unicodedata import name
-from matplotlib import artist
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import discord

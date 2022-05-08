@@ -11,13 +11,13 @@ from discord.ext import commands
 import os.path
 # The following code is used from the article on how to link the spotipy module to the spotify api
 # https://medium.com/@maxtingle/getting-started-with-spotifys-api-spotipy-197c3dc6353b
-cid = 'e4c78a5dc39c4b26846e7c957dd6cd22'
-secret = 'f21f0a760afa414e94166d523bc245b9'
-scope = "playlist-modify-public user-top-read"
+cid = '********'
+secret = '********'
+scope = "**********"
 client_credentials_manager = SpotifyClientCredentials(client_id=cid, client_secret=secret)
 token = util.prompt_for_user_token("1239761503",scope,client_id=cid,client_secret=secret, redirect_uri="http://35.208.83.39/callback/", show_dialog=True)
 sp = spotipy.Spotify(auth=token)
-TOKEN = 'OTQwMTAyNTc3OTUyMDI2NjY2.YgCgwA.G86f31l8IKRG1O9jl4OkrJfk0QI'
+TOKEN = '***********'
 client = commands.Bot(command_prefix='!')
 client.remove_command("help")
 

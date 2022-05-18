@@ -1,4 +1,12 @@
 /**
+ * This code was used as starter code to set up web authenication.
+ * Found by following the tutorial by Spotify:
+ * https://developer.spotify.com/documentation/web-api/quick-start/
+ * The orginal file can be found at:
+ * https://github.com/spotify/web-api-auth-examples/tree/master/authorization_code
+ * The section that was added to create the cache file can be found at line 110
+ */
+/**
  * This is an example of a basic node.js script that performs
  * the Authorization Code oAuth2 flow to authenticate against
  * the Spotify Accounts.
@@ -36,6 +44,7 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
+//used the index.html file in public directory
 app.use(express.static(__dirname + '/public'))
    .use(cors())
    .use(cookieParser());
@@ -100,17 +109,15 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-           console.log(body);
-	   const fs = require('fs')
-
-let data = '{"access_token": "' + access_token + '", "token_type": "Bearer", "expires_in": 3600, "scope": "playlist-modify-public user-top-read", "expires_at": 1651437339, "refresh_token": "' + refresh_token + '"}'
-let fileName = '.cache-' + body.id
-// Write data in 'Output.txt' .
-fs.writeFile(fileName, data, (err) => {
-
-    // In case of a error throw err.
-    if (err) throw err;
-})
+            console.log(body);
+	          const fs = require('fs')
+            //follows cache structure used by Spotify Python API natively
+            let data = '{"access_token": "' + access_token + '", "token_type": "Bearer", "expires_in": 3600, "scope": "playlist-modify-public user-top-read", "expires_at": 1651437339, "refresh_token": "' + refresh_token + '"}'
+            let fileName = '.cache-' + body.id
+            fs.writeFile(fileName, data, (err) => {
+            // In case of a error throw err.
+            if (err) throw err;
+            })
         });
 
         // we can also pass the token to the browser to make requests from there
@@ -128,7 +135,7 @@ fs.writeFile(fileName, data, (err) => {
     });
   }
 });
-
+//refresh token used to generate new auth token
 app.get('/refresh_token', function(req, res) {
 
   // requesting access token from refresh token
@@ -153,5 +160,5 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-console.log('Listening on 8888');
+console.log('Listening on 8080');
 app.listen(8080);
